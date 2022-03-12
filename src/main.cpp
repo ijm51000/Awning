@@ -7,7 +7,7 @@ const char* password =  ""; // Enter WiFi password
 const char* mqttServer = "192.168.0.130";
 const int mqttPort = 1883;
 const char* mqttUser = "ian";
-const char* mqttPassword = "macmac51";
+const char* mqttPassword = "";
  
 WiFiClient espClient;
 PubSubClient client(espClient);
