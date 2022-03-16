@@ -17,7 +17,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println(topic);
   if (topic == "awning/setTargetPosition") {
     Serial.println(topic);
-    client.publish("awning/CurrentPosition", "100")
+    client.publish("awning/CurrentPosition", "100");
   }
  
   Serial.print("Message:");
