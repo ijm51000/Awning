@@ -8,25 +8,42 @@ const char* mqttServer = "192.168.0.130";
 const int mqttPort = 1883;
 const char* mqttUser = "ian";
 const char* mqttPassword = "macmac51";
- 
+
 WiFiClient espClient;
 PubSubClient client(espClient);
 void callback(char* topic, byte* payload, unsigned int length) {
- 
+  String message;
+  String strTopic;
+  //int msg =0;
   Serial.print("Message arrived in topic: ");
-  Serial.println(topic);
-  if (topic == "awning/setTargetPosition") {
-    Serial.println(topic);
-    client.publish("awning/CurrentPosition", "100");
-  }
- 
+  Serial.print(strTopic);
   Serial.print("Message:");
   for (unsigned int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
+    //Serial.print((char)payload[i]);
+    message += (char)payload[i];
   }
- 
+  Serial.println(message);
+  int msg = message.toInt();
   Serial.println();
   Serial.println("-----------------------");
+  strTopic = String((char*)topic);
+  Serial.println("topic value");
+  Serial.println(message);
+
+  if (strTopic == "awning/setTargetPosition") {
+    Serial.println(topic);
+
+    if (msg > 0) {
+     delay(3000);
+     Serial.println("Setting awning open");
+     client.publish("awning/CurrentPosition", "100");
+    }
+    else {
+      Serial.println("Setting awning close");
+      client.publish("awning/CurrentPosition", "0"); 
+    }
+  }
+ 
  
 }
 
@@ -63,7 +80,7 @@ void setup() {
     }
   }
  
-  client.publish("awning/CurrentPosition", "0"); //Topic name
+ // client.publish("awning/CurrentPosition", "0"); //Topic name
   client.subscribe("awning/setTargetPosition");
   client.subscribe("awning/getPositionState");
 }
