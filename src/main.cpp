@@ -29,17 +29,23 @@ void callback(char* topic, byte* payload, unsigned int length) {
   strTopic = String((char*)topic);
   Serial.println("topic value");
   Serial.println(message);
-
+  int str_len = strTopic.length() + 1; 
+  char char_array[str_len];
+  strTopic.toCharArray(char_array, str_len);
   if (strTopic == "awning/setTargetPosition") {
     Serial.println(topic);
 
-    if (msg > 0) {
+    if (msg) {
+     char blindposition[10];
      delay(3000);
      Serial.println("Setting awning open");
-     client.publish("awning/CurrentPosition", "100");
+     itoa(msg, blindposition, 10);
+     client.publish("awning/CurrentPosition", blindposition);
     }
     else {
       Serial.println("Setting awning close");
+      Serial.println("sending: ");
+      Serial.println(msg);
       client.publish("awning/CurrentPosition", "0"); 
     }
   }
