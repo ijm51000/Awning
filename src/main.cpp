@@ -1,13 +1,22 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
- 
+#define LED D0 //Led in NodeMCU at pin GPIO16 (D0) 
+
+
 const char* ssid = "themacs"; // Enter your WiFi name
 const char* password =  "macmac51"; // Enter WiFi password
 const char* mqttServer = "192.168.0.130";
 const int mqttPort = 1883;
 const char* mqttUser = "ian";
 const char* mqttPassword = "macmac51";
+
+
+void test(String topic){
+Serial.println("from inside the func");
+Serial.println(topic);
+}
+
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -37,7 +46,16 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
     if (msg) {
      char blindposition[10];
-     delay(3000);
+     test(strTopic);
+     int count = 10;
+     for (int i = 0; i < count; i++){
+      digitalWrite(LED, HIGH); //turn the led off
+      delay(1000); //wait for 1 sec
+      digitalWrite(LED, LOW); //turn the led on
+// delay(1000); //wait for 1 sec 
+
+//     delay(3000);
+     }
      Serial.println("Setting awning open");
      itoa(msg, blindposition, 10);
      client.publish("awning/CurrentPosition", blindposition);
@@ -57,7 +75,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 void setup() {
  
   Serial.begin(115200);
- 
+  pinMode(LED, OUTPUT); //LED pin as output
   WiFi.begin(ssid, password);
  
   while (WiFi.status() != WL_CONNECTED) {
