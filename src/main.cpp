@@ -23,10 +23,12 @@ unsigned int openAwning(void){
   Serial.println("hello from open awningfunction");
   // start motor to open
   // this needs a while loop for the hall sensor 
-  // use delay for testin
+  // use delay for testing
   digitalWrite(IN1, HIGH);
   digitalWrite(IN2, LOW);
   delay(3000);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
   return 1;
 }
 
@@ -34,10 +36,12 @@ unsigned int closeAwning(void){
   Serial.println("hello from close awning function");
     // start motor to close
   // this needs a while loop for the hall sensor 
-  // use delay for testin
+  // use delay for testing
   digitalWrite(IN1, LOW);
   digitalWrite(IN2, HIGH);
   delay(3000);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
   return 1;
 }
 
@@ -88,7 +92,7 @@ void setup() {
   // config motor direction pins output
   pinMode(IN1, OUTPUT);
   pinMode(IN2, OUTPUT); 
-  
+
   // config limit switches 
   pinMode(STOP_OPEN, INPUT);
   pinMode(STOP_CLOSED, INPUT);  
