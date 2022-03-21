@@ -8,7 +8,9 @@
 // 1    1 Stop 
 int IN1 = D1; //Direction pins
 int IN2 = D2; 
-
+// limit switches
+int STOP_OPEN = D5; // limit switch for open
+int STOP_CLOSED = D6; // limit switch for closed
 const char* ssid = "themacs"; // Enter your WiFi name
 const char* password =  "macmac51"; // Enter WiFi password
 const char* mqttServer = "192.168.0.130";
@@ -83,9 +85,13 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
 
 void setup() {
-  // motor direction pins output
+  // config motor direction pins output
   pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);  
+  pinMode(IN2, OUTPUT); 
+  
+  // config limit switches 
+  pinMode(STOP_OPEN, INPUT);
+  pinMode(STOP_CLOSED, INPUT);  
   Serial.begin(115200);
 //  pinMode(LED, OUTPUT); //LED pin as output
   WiFi.begin(ssid, password);
