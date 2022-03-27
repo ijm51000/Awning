@@ -11,12 +11,12 @@ int IN2 = D2;
 // limit switches
 int STOP_OPEN = D5; // limit switch for open
 int STOP_CLOSED = D6; // limit switch for closed
-const char* ssid = "themacs"; // Enter your WiFi name
+const char* ssid = "********"; // Enter your WiFi name
 const char* password =  "*********"; // Enter WiFi password
 const char* mqttServer = "192.168.0.130";
 const int mqttPort = 1883;
-const char* mqttUser = "ian";
-const char* mqttPassword = "macmac51";
+const char* mqttUser = "******";
+const char* mqttPassword = "**********";
 
 
 unsigned int openAwning(void){
